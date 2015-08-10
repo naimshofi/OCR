@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<input class="form-control" type="password" name="password" placeholder="Password" required>
 				</div>
 				<div class="form-group">
-					<button class="btn btn-primary btn-lg" type="submit">Sign In</button>
+					<button class="btn btn-primary btn-md btn-block" type="submit">Sign In</button>
 				</div>
 			</form>
 			<a href="<?=site_url('user/forgot');?>">Forgot Password?</a><span class="clearfix"></span>

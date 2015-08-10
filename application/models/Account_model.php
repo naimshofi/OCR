@@ -7,37 +7,31 @@ class Account_model extends CI_Model
         $this->load->database();
     }
 
-    public function login($email, $password)
+    public function set_user_profile($user_id)
     {
-        $this->db->select('user_id, user_firstname, user_password');
-        $this->db->where('user_email', $email);
-        $this->db->where('user_password', MD5($password));
-
-        $query = $this->db->get('ocr_user');
-
-        if($query -> num_rows() == 1)
-        {
-            return $query->result();
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public function set_user()
-    {
-        $user_id = $this->get_last_user_id();
+        $profile_id = $this->get_last_profile_id();
 
         $data = array(
-          'user_id' => $user_id,
-          'user_firstname' => $this->input->post('firstname'),
-          'user_lastname' => $this->input->post('lastname'),
-          'user_email' => $this->input->post('email'),
-          'user_password' => MD5($this->input->post('password'))
-          );
+            'profile_id' => $profile_id,
+            'profile_user_id' => $user_id,
+            'profile_firstname' => $this->input->post('firstname'),
+            'profile_lastname' => $this->input->post('lastname')
+            );
 
-        return $this->db->insert('ocr_user', $data);
+        return $this->db->insert('ocr_user_profile', $data);
+    }
+
+    public function update_user_profile($user_id)
+    {   
+        $this->db->set('profile_firstname', $this->input->post('firstname'));
+        $this->db->set('profile_lastname', $this->input->post('lastname'));
+        $this->db->set('profile_contact_number', $this->input->post('contact_number'));
+        $this->db->set('profile_address', $this->input->post('address'));
+        $this->db->set('profile_facebook', $this->input->post('facebook'));
+        $this->db->set('profile_twitter', $this->input->post('twitter'));
+        $this->db->set('profile_instagram', $this->input->post('instagram'));
+        $this->db->where('profile_user_id', $user_id);
+        $this->db->update('ocr_user_profile');
     }
 
     public function get_last_profile_id()
@@ -57,10 +51,10 @@ class Account_model extends CI_Model
 
     public function get_user_profile($user_id)
     {
-        $this->db->select('profile_id, profile_contact_number, profile_facebook, profile_twitter, profile_instagram, profile_address');
+        $this->db->select('user_email, profile_id, profile_firstname, profile_lastname, profile_contact_number, profile_facebook, profile_twitter, profile_instagram, profile_address');
         $this->db->from('ocr_user_profile');
         $this->db->join('ocr_user', 'ocr_user.user_id = ocr_user_profile.profile_user_id');
-        $this->db->where('profile_user_id', $user_id);
+        $this->db->where('profile_user_id', $user_id);        
 
         $query = $this->db->get();
         return $query->row_array();

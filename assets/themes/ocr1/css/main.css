@@ -60,7 +60,6 @@ hr {
 }
 .btn {
   font-weight: 400;
-  width: 100%;
 }
 .btn-transparent {
   border: 3px solid #fff;
@@ -242,7 +241,7 @@ body > section {
   color: rgba(255, 255, 255, 0.8);
 }
 .turquoise {
-  background-color: #1abc9c;
+  background-color: #21B6A8;
 }
 .green-sea {
   background-color: #16a085;

@@ -47,7 +47,6 @@ class User extends CI_Controller {
 		$data['page_desc'] = "Please log in to your account to continue.";
 
 		//User still not logged in == no session
-		$this->load->helper('form');
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('email', 'Email', 'required|trim');
@@ -80,13 +79,14 @@ class User extends CI_Controller {
 		$data['page_title'] = "Register";
 		$data['page_desc'] = "Please enter your correct informations.";
 
-		$this->load->helper('form');
 	    $this->load->library('form_validation');
+	    $this->form_validation->set_error_delimiters('<div class="status alert alert-danger">', '</div>');
 
 	    $this->form_validation->set_rules('firstname', 'Firstname', 'required');
 	    $this->form_validation->set_rules('lastname', 'Lastname', 'required');
 	    $this->form_validation->set_rules('email', 'Email', 'required');
 	    $this->form_validation->set_rules('password', 'Password', 'required');
+	    $this->form_validation->set_rules('passwordcf', 'Password Confirmation', 'required|matches[password]');
 
 	    if ($this->form_validation->run() === FALSE)
 	    {
@@ -117,7 +117,7 @@ class User extends CI_Controller {
 			{
 				$sess_array = array(
 					'id' => $row->user_id,
-					'firstname' => $row->user_firstname
+					'firstname' => $row->profile_firstname
 				);
 				$this->session->set_userdata('logged_in', $sess_array);
 			}

@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="blog">
                 <div class="blog-item">
                     <div class="blog-content">
-                        <h3>Firstname + Lastname</h3>
+                        <h3><?=$profile['profile_firstname'];?>&nbsp;<?=$profile['profile_lastname'];?></h3>
                         <!--/ Personal Particular -->
                         <div class="panel panel-default btn-nuce">
                         	<div class="panel-heading">Personal Pariculars</div>
@@ -28,9 +28,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         			<div class="col-sm-12">
                         				<div class="row center">
                         					<p><?=$profile['profile_contact_number'];?></p>
+                        					<p><?=$profile['user_email'];?></p>
                         					<p><?=$profile['profile_address'];?></p>
                         				</div>
-                        			</div>                        			
+                        			</div>
                         		</div>
                         	</div>
                         </div>
@@ -41,14 +42,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         		<div class="row">
                         			<div class="col-sm-12">
                         				<div class="row center">
-                        					<a class="btn btn-social btn-facebook" href="<?=$profile['profile_facebook'];?>"><i class="icon-facebook"></i></a>
-                        					<a class="btn btn-social btn-twitter" href="<?=$profile['profile_twitter'];?>"><i class="icon-twitter"></i></a>
-                        					<a class="btn btn-social btn-instagram" href="<?=$profile['profile_instagram'];?>"><i class="icon-instagram"></i></a>
+                        					<?php 
+                        					if($profile['profile_facebook'] != null)
+                        					{
+                        						echo '<a class="btn btn-social btn-facebook" href="'.$profile['profile_facebook'].'"><i class="icon-facebook"></i></a>';
+                        					}
+                        					if($profile['profile_twitter'] != null)
+                        					{
+                        						echo '<a class="btn btn-social btn-twitter" href="'.$profile['profile_twitter'].'"><i class="icon-twitter"></i></a>';
+                        					}
+                        					if($profile['profile_instagram'] != null)
+                        					{
+                        						echo '<a class="btn btn-social btn-instagram" href="'.$profile['profile_instagram'].'"><i class="icon-instagram"></i></a>';
+                        					}
+                        					?>
                         				</div>
-                        			</div>                        			
+                        			</div>
                         		</div>
                         	</div>
                         </div>
+	                    <a href="<?=site_url('account/update')?>" class="btn btn-primary">Update User Profile <i class="icon-angle-right"></i></a>
+                        </form>
                     </div>
                 </div><!--/.blog-item-->           
             </div>

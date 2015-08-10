@@ -9,11 +9,13 @@ class User_model extends CI_Model
 
     public function login($email, $password)
     {
-        $this->db->select('user_id, user_firstname, user_password');
+        $this->db->select('user_id, profile_firstname, user_password');
+        $this->db->from('ocr_user');
+        $this->db->join('ocr_user_profile', 'user_id = profile_user_id');
         $this->db->where('user_email', $email);
         $this->db->where('user_password', MD5($password));
 
-        $query = $this->db->get('ocr_user');
+        $query = $this->db->get();
 
         if($query -> num_rows() == 1)
         {
@@ -30,12 +32,13 @@ class User_model extends CI_Model
         $user_id = $this->get_last_user_id();
 
         $data = array(
-          'user_id' => $user_id,
-          'user_firstname' => $this->input->post('firstname'),
-          'user_lastname' => $this->input->post('lastname'),
-          'user_email' => $this->input->post('email'),
-          'user_password' => MD5($this->input->post('password'))
-          );
+            'user_id' => $user_id,
+            'user_email' => $this->input->post('email'),
+            'user_password' => MD5($this->input->post('password'))
+            );
+
+        $this->load->model('account_model');
+        $this->account_model->set_user_profile($user_id);
 
         return $this->db->insert('ocr_user', $data);
     }

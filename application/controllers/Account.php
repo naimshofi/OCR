@@ -55,71 +55,37 @@ class Account extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
-	public function login()
+	public function update()
 	{
+	    $this->not_logged_in();
+
+	    $result = $this->account_model->get_user_profile($this->session->userdata['logged_in']['id']);
+
+		$data['profile'] = $result;		
 		$data['is_logged_in'] = $this->session->userdata('logged_in');
-		$data['page_title'] = "Login";
-		$data['page_desc'] = "Please log in to your account to continue.";
+		$data['page_title'] = "Update User Profile";
+		$data['page_desc'] = "Please add or update your profile informations.";	
 
-		//User still not logged in == no session
-		$this->load->helper('form');
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('email', 'Email', 'required|trim');
-		$this->form_validation->set_rules('password', 'password', 'required|trim|callback_check_login');
-
-		if($this->form_validation->run() === FALSE)
-		{
-			$this->load->view('layout/header', $data);
-			$this->load->view('user/login');
-			$this->load->view('layout/footer');
-		}
-		else
-		{
-			redirect('/main/');
-		}		
-	}
-
-	public function logout()
-	{
-		$this->session->unset_userdata('logged_in');
-		session_destroy();
-		redirect('/user/login/');
-	}
-
-	public function register()
-	{
-		$this->is_logged_in();
-		
-		$data['is_logged_in'] = $this->session->userdata('logged_in');
-		$data['page_title'] = "Register";
-		$data['page_desc'] = "Please enter your correct informations.";
-
-		$this->load->helper('form');
 	    $this->load->library('form_validation');
+	    $this->form_validation->set_error_delimiters('<div class="status alert alert-danger">', '</div>');
 
-	    $this->form_validation->set_rules('firstname', 'Firstname', 'required');
-	    $this->form_validation->set_rules('lastname', 'Lastname', 'required');
-	    $this->form_validation->set_rules('email', 'Email', 'required');
-	    $this->form_validation->set_rules('password', 'Password', 'required');
+	    $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
+	    $this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
+	    $this->form_validation->set_rules('email', 'Email', 'trim|required');
+	    $this->form_validation->set_rules('contact_number', 'Contact Number', 'trim|numeric|max_length[15]');
 
 	    if ($this->form_validation->run() === FALSE)
 	    {
 			$this->load->view('layout/header', $data);
-			$this->load->view('user/register');
+			$this->load->view('user/update_profile');
 			$this->load->view('layout/footer');	    
 		}
 	    else
 	    {
-	        $this->user_model->set_user();
-	        redirect('/user/login/');	
+	        $this->account_model->update_user_profile($this->session->userdata['logged_in']['id']);
+	        redirect('/account/profile/');	
 	    }
-	}
-
-	public function forgot()
-	{
-		$this->load->view('user/forgot_password');
-	}
+	}	
 
 	public function check_login()
 	{
