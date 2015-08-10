@@ -19,8 +19,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="blog">
                 <div class="blog-item">
                     <div class="blog-content">
-                        <h3><?=$profile['profile_firstname'];?>&nbsp;<?=$profile['profile_lastname'];?></h3>
-                        <!--/ Personal Particular -->
+                    	<div class="row">
+                    		<div class="col-sm-10">
+                    			<h3><?=$profile['profile_firstname'];?>&nbsp;<?=$profile['profile_lastname'];?></h3>
+                    		</div>
+                    		<div class="col-sm-2">
+                    			<img src="http://www.gravatar.com/avatar/<?=$gravatar_url?>">
+                    		</div>
+                    	</div>
+                    	<!--/ Personal Particular -->
                         <div class="panel panel-default btn-nuce">
                         	<div class="panel-heading">Personal Pariculars</div>
                         	<div class="panel-body">

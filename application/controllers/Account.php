@@ -49,6 +49,7 @@ class Account extends CI_Controller {
 		$data['is_logged_in'] = $this->session->userdata('logged_in');
 		$data['page_title'] = "User Profile";
 		$data['page_desc'] = "This is the user profile informations.";
+		$data['gravatar_url'] = md5(strtolower(trim($data['profile']['user_email'])));
 
 		$this->load->view('layout/header', $data);
 		$this->load->view('user/profile');
@@ -85,29 +86,5 @@ class Account extends CI_Controller {
 	        $this->account_model->update_user_profile($this->session->userdata['logged_in']['id']);
 	        redirect('/account/profile/');	
 	    }
-	}	
-
-	public function check_login()
-	{
-		$result = $this->user_model->login($this->input->post('email'),$this->input->post('password'));
-
-		if($result)
-		{
-			$sess_array = array();
-			foreach ($result as $row) 
-			{
-				$sess_array = array(
-					'id' => $row->user_id,
-					'firstname' => $row->user_firstname
-				);
-				$this->session->set_userdata('logged_in', $sess_array);
-			}
-			return TRUE;
-		}
-		else
-		{
-			$this->form_validation->set_message('check_login','Invalid email or password');
-			return FALSE;
-		}
 	}
 }
