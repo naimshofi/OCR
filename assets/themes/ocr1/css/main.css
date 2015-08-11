@@ -686,6 +686,7 @@ ul.tag-cloud li {
   line-height: 36px;
   text-align: center;
   padding: 0;
+  margin: 0 5px;
 }
 .btn-social.btn-facebook {
   background: #4f7dd4;

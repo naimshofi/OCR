@@ -3,18 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <section id="blog" class="container">
     <div class="row">
-        <aside class="col-sm-4 col-sm-push-8">
-            <div class="widget categories">
-                <h3>Side Menu</h3>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <ul class="arrow">
-                            <li><a href="#">Development</a></li>
-                        </ul>
-                    </div>                 
-                </div>                     
-            </div><!--/.categories-->           
-        </aside>        
+        <?php $this->load->view('layout/sidebar'); ?>
         <div class="col-sm-8 col-sm-pull-4">
             <div class="blog">
                 <div class="blog-item">
