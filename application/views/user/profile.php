@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         		</div>
                         	</div>
                         </div>
-	                    <a href="<?=site_url('account/update')?>" class="btn btn-primary">Update User Profile <i class="icon-angle-right"></i></a>
+	                    <a href="<?=site_url('profile/update')?>" class="btn btn-primary">Update User Profile <i class="icon-angle-right"></i></a>
                         </form>
                     </div>
                 </div><!--/.blog-item-->           

@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     if($is_logged_in)
                     {
                     ?>
-                    	<li><a href="<?=site_url('account/profile');?>">Hi, <?php echo $this->session->userdata['logged_in']['firstname'];?></a></li>
+                    	<li><a href="<?=site_url('profile/view');?>">Hi, <?php echo $this->session->userdata['logged_in']['firstname'];?></a></li>
                     	<li><a href="<?=site_url('user/logout');?>">Log Out</a></li>
                     <?php
                     }

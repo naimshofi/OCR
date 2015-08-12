@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 						<?php echo validation_errors(); ?>
 
-						<?php echo form_open('account/update') ?>
+						<?php echo form_open('profile/update') ?>
                         
                         <!--/ Personal Particular -->
                         <div class="panel panel-default btn-nuce">

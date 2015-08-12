@@ -11,7 +11,7 @@ class User_model extends CI_Model
     {
         $this->db->select('user_id, profile_firstname, user_password');
         $this->db->from('ocr_user');
-        $this->db->join('ocr_user_profile', 'user_id = profile_user_id');
+        $this->db->join('ocr_profile', 'user_id = profile_user_id');
         $this->db->where('user_email', $email);
         $this->db->where('user_password', MD5($password));
 

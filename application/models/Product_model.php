@@ -22,7 +22,7 @@ class Product_model extends CI_Model
         return $this->db->insert('ocr_product', $data);
     }
 
-    public function update_user_profile($user_id)
+    public function update_profile($user_id)
     {   
         $this->db->set('profile_firstname', $this->input->post('firstname'));
         $this->db->set('profile_lastname', $this->input->post('lastname'));
@@ -32,7 +32,7 @@ class Product_model extends CI_Model
         $this->db->set('profile_twitter', $this->input->post('twitter'));
         $this->db->set('profile_instagram', $this->input->post('instagram'));
         $this->db->where('profile_user_id', $user_id);
-        $this->db->update('ocr_user_profile');
+        $this->db->update('ocr_profile');
     }
 
     public function get_last_product_id()
