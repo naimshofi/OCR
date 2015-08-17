@@ -22,17 +22,13 @@ class Product_model extends CI_Model
         return $this->db->insert('ocr_product', $data);
     }
 
-    public function update_profile($user_id)
+    public function update_product()
     {   
-        $this->db->set('profile_firstname', $this->input->post('firstname'));
-        $this->db->set('profile_lastname', $this->input->post('lastname'));
-        $this->db->set('profile_contact_number', $this->input->post('contact_number'));
-        $this->db->set('profile_address', $this->input->post('address'));
-        $this->db->set('profile_facebook', $this->input->post('facebook'));
-        $this->db->set('profile_twitter', $this->input->post('twitter'));
-        $this->db->set('profile_instagram', $this->input->post('instagram'));
-        $this->db->where('profile_user_id', $user_id);
-        $this->db->update('ocr_profile');
+        $this->db->set('product_name', $this->input->post('product_name'));
+        $this->db->set('product_price', $this->input->post('product_price'));
+        $this->db->set('product_desc', $this->input->post('product_desc'));
+        $this->db->where('product_id', $this->input->post('product_id'));
+        $this->db->update('ocr_product');
     }
 
     public function get_last_product_id()
@@ -50,14 +46,26 @@ class Product_model extends CI_Model
         }
     }
 
-    public function get_all_product($user_id)
+    public function get_product($user_id, $product_id = FALSE)
     {
         $this->db->select('product_id, product_name, product_price, product_desc');
         $this->db->from('ocr_product');
-        $this->db->where('product_user_id', $user_id);        
+
+        if($product_id === FALSE)
+        {            
+            $this->db->where('product_user_id', $user_id);        
+
+            $query = $this->db->get();
+
+            return $query->result_array();
+        }
+
+        $this->db->where('product_user_id', $user_id);
+        $this->db->where('product_id', $product_id);
 
         $query = $this->db->get();
-        return $query->result_array();
+
+        return $query->row_array();        
     }
 }
 ?>

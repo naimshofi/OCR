@@ -28,7 +28,7 @@ class Product extends CI_Controller {
 
 	public function index()
 	{
-		redirect('/product/add/');
+		redirect('/product/view_all/');
 	}
 
 	public function not_logged_in()
@@ -43,7 +43,7 @@ class Product extends CI_Controller {
 	{
 		$this->not_logged_in();
 
-		$result = $this->product_model->get_all_product($this->session->userdata['logged_in']['id']);
+		$result = $this->product_model->get_product($this->session->userdata['logged_in']['id']);
 
 		$data['product'] = $result;
 		$data['is_logged_in'] = $this->session->userdata('logged_in');
@@ -53,7 +53,6 @@ class Product extends CI_Controller {
 		$this->load->view('layout/header', $data);
 		$this->load->view('product/view_all');
 		$this->load->view('layout/footer');
-
 	}	
 
 	public function add()
@@ -83,35 +82,33 @@ class Product extends CI_Controller {
 	   	}		
 	}
 
-	public function update()
+	public function update($product_id = NULL)
 	{
 	    $this->not_logged_in();
 
-	    $result = $this->account_model->get_user_profile($this->session->userdata['logged_in']['id']);
+		$result = $this->product_model->get_product($this->session->userdata['logged_in']['id'], $product_id);
 
-		$data['profile'] = $result;		
+		$data['product'] = $result;
 		$data['is_logged_in'] = $this->session->userdata('logged_in');
-		$data['page_title'] = "Update User Profile";
-		$data['page_desc'] = "Please add or update your profile informations.";	
+		$data['page_title'] = "Update My Product";
+		$data['page_desc'] = "Please update your product informations.";
 
 	    $this->load->library('form_validation');
 	    $this->form_validation->set_error_delimiters('<div class="status alert alert-danger">', '</div>');
 
-	    $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
-	    $this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
-	    $this->form_validation->set_rules('email', 'Email', 'trim|required');
-	    $this->form_validation->set_rules('contact_number', 'Contact Number', 'trim|numeric|max_length[15]');
+	    $this->form_validation->set_rules('product_name', 'Product name', 'required');
+	    $this->form_validation->set_rules('product_price', 'Product price', 'required|callback_regex_match');
 
 	    if ($this->form_validation->run() === FALSE)
 	    {
 			$this->load->view('layout/header', $data);
-			$this->load->view('user/update_profile');
+			$this->load->view('product/update');
 			$this->load->view('layout/footer');    
 		}
 	    else
 	    {
-	        $this->account_model->update_user_profile($this->session->userdata['logged_in']['id']);
-	        redirect('/account/profile/');	
+	        $this->product_model->update_product();
+	        redirect('/product/');	
 	    }
 	}
 

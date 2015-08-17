@@ -19,6 +19,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <?php echo $product_item['product_desc'] ?><br>
                                             RM <?php echo $product_item['product_price'] ?><br>
                                         </td>
+                                        <td class="right">
+                                            <a class="btn wet-asphalt" href="update/<?php echo $product_item['product_id'] ?>"><i class="icon-edit"></i></a>
+                                        </td>
                                     </tr>
                                 <?php endforeach ?>
                         	</div>
