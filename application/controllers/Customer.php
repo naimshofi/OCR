@@ -67,6 +67,41 @@ class Customer extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
+	public function add_profile()
+	{
+		$this->not_logged_in();
+
+		$data['is_logged_in'] = $this->session->userdata('logged_in');
+		$data['page_title'] = "Add Customer Profile";
+		$data['page_desc'] = "PLease enter your customer informations.";
+
+	    $this->load->library('form_validation');
+	    $this->form_validation->set_error_delimiters('<div class="status alert alert-danger">', '</div>');
+
+	    $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
+	    $this->form_validation->set_rules('contact_number', 'Contact Number', 'trim|numeric|max_length[15]');
+
+	    if ($this->form_validation->run() === FALSE)
+	    {
+			$this->load->view('layout/header', $data);
+			$this->load->view('customer/add_profile');
+			$this->load->view('layout/footer');	    
+		}
+	    else
+	    {	        
+	        if($this->input->post('save'))
+	        {
+	        	$this->customer_model->add_profile($this->session->userdata['logged_in']['id']);
+	        	redirect('/customer/');
+	        }
+	        else if($this->input->post('continue'))
+	        {
+	        	$this->customer_model->add_profile($this->session->userdata['logged_in']['id']);
+	        	redirect('/sell/add/'.$this->customer_model->get_customer_id());
+	        }
+	    }
+	}
+
 	public function update_profile($profile_id = NULL)
 	{
 	    $this->not_logged_in();
@@ -97,33 +132,6 @@ class Customer extends CI_Controller {
 	        $url = "/customer/view_profile/".$this->input->post('profile_id');
 
 	        redirect($url);	
-	    }
-	}
-
-	public function add_profile()
-	{
-		$this->not_logged_in();
-
-		$data['is_logged_in'] = $this->session->userdata('logged_in');
-		$data['page_title'] = "Add Customer Profile";
-		$data['page_desc'] = "PLease enter your customer informations.";	
-
-	    $this->load->library('form_validation');
-	    $this->form_validation->set_error_delimiters('<div class="status alert alert-danger">', '</div>');
-
-	    $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
-	    $this->form_validation->set_rules('contact_number', 'Contact Number', 'trim|numeric|max_length[15]');
-
-	    if ($this->form_validation->run() === FALSE)
-	    {
-			$this->load->view('layout/header', $data);
-			$this->load->view('customer/add_profile');
-			$this->load->view('layout/footer');	    
-		}
-	    else
-	    {
-	        $this->customer_model->add_profile($this->session->userdata['logged_in']['id']);
-	        redirect('/customer/');	
 	    }
 	}
 }

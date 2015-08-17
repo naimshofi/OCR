@@ -8,7 +8,7 @@
                     <li><a href="<?=site_url('customer/add_profile')?>">Add Customer Profile</a></li>
                 </ul>
                 <ul class="arrow">
-                    <li><a href="#">Add Selling</a></li>
+                    <li><a href="<?=site_url('sell/add')?>">Add Selling</a></li>
                 </ul>
             </div>                 
         </div>                     
@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <ul class="arrow">
-                    <li><a href="../product/add">Add My Product</a></li>
+                    <li><a href="<?=site_url('/product/add')?>">Add My Product</a></li>
                 </ul>
             </div>                 
         </div>                     

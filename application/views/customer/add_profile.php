@@ -70,7 +70,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         		</div>
                         	</div>
                         </div>
-                        <button class="btn btn-primary btn-md btn-block" type="submit">Add Record</button>
+                        <div class="row">
+                            <div class="col-sm-12 center-block">
+                                <div class="col-sm-6">
+                                    <input name="save" class="btn btn-info btn-md btn-block" type="submit" value="Save Customer">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input name="continue" class="btn btn-primary btn-md btn-block" type="submit" value="Save and Continue Sell Record">
+                                </div>
+                            </div>
+                        </div>
                         </form>
                     </div>
                 </div><!--/.blog-item-->           

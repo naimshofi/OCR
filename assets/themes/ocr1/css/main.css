@@ -31,6 +31,10 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.table td.right {
+  text-align: right;
+  vertical-align: middle;
+}
 body {
   padding-top: 80px;
   color: #34495e;

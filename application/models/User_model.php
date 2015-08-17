@@ -37,8 +37,8 @@ class User_model extends CI_Model
             'user_password' => MD5($this->input->post('password'))
             );
 
-        $this->load->model('account_model');
-        $this->account_model->set_user_profile($user_id);
+        $this->load->model('profile_model');
+        $this->profile_model->set_profile($user_id);
 
         return $this->db->insert('ocr_user', $data);
     }
